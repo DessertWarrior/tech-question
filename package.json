@@ -2,9 +2,9 @@
   "name": "tech-question",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "merge.js",
   "scripts": {
-    "test": "vitest --run --reporter verbose"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

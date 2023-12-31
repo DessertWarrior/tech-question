@@ -1,26 +1,29 @@
-Given an array of integers citations where citations[i] is the number of citations a researcher received for their ith paper, return the researcher's h-index.
+Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
 
-According to the definition of h-index on Wikipedia: The h-index is defined as the maximum value of h such that the given researcher has published at least h papers that have each been cited at least h times.
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+You must write an algorithm that runs in O(n) time and without using the division operation.
 
  
 
 Example 1:
 
-Input: citations = [3,0,6,1,5]
-Output: 3
-Explanation: [3,0,6,1,5] means the researcher has 5 papers in total and each of them had received 3, 0, 6, 1, 5 citations respectively.
-Since the researcher has 3 papers with at least 3 citations each and the remaining two with no more than 3 citations each, their h-index is 3.
+Input: nums = [1,2,3,4]
+Output: [24,12,8,6]
 
 Example 2:
 
-Input: citations = [1,3,1]
-Output: 1
+Input: nums = [-1,1,0,-3,3]
+Output: [0,0,9,0,0]
 
  
 
 Constraints:
 
-    n == citations.length
-    1 <= n <= 5000
-    0 <= citations[i] <= 1000
+    2 <= nums.length <= 105
+    -30 <= nums[i] <= 30
+    The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
 
+ 
+
+Follow up: Can you solve the problem in O(1) extra space complexity? (The output array does not count as extra space for space complexity analysis.)

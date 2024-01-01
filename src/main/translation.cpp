@@ -6,27 +6,6 @@
 using namespace std;
 
 string toFrench(long int num) {
-    //125 - cent vingt-cinq
-    //80 quatre-vingts (only 80 has the s)
-    //81 quatre-vingt-un (only 81 doesnt have et un)
-    //1 un
-    //2 deux
-    //3 trols
-    //4 quatre
-    //5 cing
-    //6 six
-    //7 sept
-    //8 huit
-    //9 neuf
-    //10 dix
-    // 1 to 20 are all unique.
-    //21 to 69 unique 10s and add 1-10 rule
-    //70 to 79 unique 10s and add 11-20 rule
-    //80 itself is a new word
-    //81 unique 10s and add 1-20 rule
-    //100 cent
-    //1000 un mille
-    //1000000 un million
     string word = "";
     //amount of digits in num
     string val = to_string(num);
@@ -51,7 +30,9 @@ string toFrench(long int num) {
     if (val.length() >= 4)
     {
         int t = stoi(val.substr(0,val.length()-3));
-        if (t != 0)
+        if (t == 1)
+            word += "mille ";
+        else if (t != 0)
             word += toFrench(t) + "mille ";
         val = val.substr(val.length()-3,val.length()); //removing all the thousands 
     }
@@ -69,19 +50,19 @@ string toFrench(long int num) {
 
     // condition between 0 to 99
     num = stoi(val);
-    if (num > 80) 
+    if (num >= 80) 
     {
         if (num == 80) 
-            word += "quantre-vingts ";
+            word += "quatre-vingts ";
         else
             word += "quatre-vingt-";
         num-= 80;
     }
-    else if (num > 20) 
+    else if (num >= 20) 
     {
-        if (num > 60) 
+        if (num >= 60) 
         {
-            word += "saixante";
+            word += "soixante";
             num-= 60;
         }
         else if (num >= 50) 
@@ -110,6 +91,9 @@ string toFrench(long int num) {
         else if (num != 0) 
         {
             word += "-";
+        }
+        else {
+            word += " "; 
         }
     }
     switch(num) {
@@ -144,7 +128,6 @@ string toFrench(long int num) {
         word += "dix ";
         break;
         case 11:
-        break;
         word += "onze ";
         break;
         case 12:
@@ -175,8 +158,3 @@ string toFrench(long int num) {
 
     return word;
 }
-
-int main(){
-    cout<<toFrench(241251921334)<<endl;
-}
-

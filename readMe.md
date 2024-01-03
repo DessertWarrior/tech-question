@@ -1,17 +1,49 @@
-Basically, an algorithm to turn numbers into french words. For example, 51 would be cinquante-cinq, 168 would be cent soixante-huit, and even crazy stuff like 89564686 which is quatre-vingt-neuf million cinq cent soixante-quatre mille six cent quatre-vingt-six (jeez).
+Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 
-print(toFrench(125)) --prints 'cent vingt-cinq'
+Symbol       Value
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
 
-codingchallenge1
+For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
 
-This algorithm has to work with any given number, no matter how many digits it has (you can limit it to a certain number, 12 digits is enough, meaning billions) and it has to respect all the rules the french numbering system has, such as:
+Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
 
-    Adding a hyphen - when needed
-    80 has an s at the end quatre-vingts unlike 81 and 82… ect. without the s (quatre-vingt-deux)
-    Any number with 1 at the end being written às vingt et un, trente et un ect. while 81 is written as quatre-vingt-un and not quatre-vingt et un
-    Invaribale numbers, such as un, deux … onze, douze…/vingt, trente …quatre-vingt-dix. (Basically numbers from 0 to 16; and all tens, like 10, 20, 30… to 90)
-    Numbers between 90 and 99, this is the trickest part
-    1 000 000 and 1 000 written as un million and un mille but 100 written as just cent without a un.
-    mille not having an s when there are multiple thousands (ex: cinq mille), but million and milliard ect. having an s if there are multiple. (ex: cinq millions)
+    I can be placed before V (5) and X (10) to make 4 and 9. 
+    X can be placed before L (50) and C (100) to make 40 and 90. 
+    C can be placed before D (500) and M (1000) to make 400 and 900.
 
-And many other special cases that I didn’t mention! For a first challenge, this is deffintely tough, which is why you can even share a part of the challenge done, even if it doesn’t fully work. But don’t worry, this is supposed to be a tutorial, we’ll see how to do it from start to finish. Also, you may wanna learn more about the french numbering system, from resources such as this 35 and this 10. Et voilà!
+Given a roman numeral, convert it to an integer.
+
+ 
+
+Example 1:
+
+Input: s = "III"
+Output: 3
+Explanation: III = 3.
+
+Example 2:
+
+Input: s = "LVIII"
+Output: 58
+Explanation: L = 50, V= 5, III = 3.
+
+Example 3:
+
+Input: s = "MCMXCIV"
+Output: 1994
+Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+
+ 
+
+Constraints:
+
+    1 <= s.length <= 15
+    s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
+    It is guaranteed that s is a valid roman numeral in the range [1, 3999].
+

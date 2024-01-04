@@ -1,23 +1,32 @@
-Write a function that reverses a string. The input string is given as an array of characters s.
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
 
-You must do this by modifying the input array in-place with O(1) extra memory.
+Given a string s, return true if it is a palindrome, or false otherwise.
 
  
 
 Example 1:
 
-Input: s = ["h","e","l","l","o"]
-Output: ["o","l","l","e","h"]
+Input: s = "A man, a plan, a canal: Panama"
+Output: true
+Explanation: "amanaplanacanalpanama" is a palindrome.
 
 Example 2:
 
-Input: s = ["H","a","n","n","a","h"]
-Output: ["h","a","n","n","a","H"]
+Input: s = "race a car"
+Output: false
+Explanation: "raceacar" is not a palindrome.
+
+Example 3:
+
+Input: s = " "
+Output: true
+Explanation: s is an empty string "" after removing non-alphanumeric characters.
+Since an empty string reads the same forward and backward, it is a palindrome.
 
  
 
 Constraints:
 
-    1 <= s.length <= 105
-    s[i] is a printable ascii character.
+    1 <= s.length <= 2 * 105
+    s consists only of printable ASCII characters.
 

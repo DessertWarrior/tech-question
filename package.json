@@ -1,0 +1,15 @@
+{
+  "name": "tech-question",
+  "version": "1.0.0",
+  "description": "Given a string s consisting of words and spaces, return the length of the last word in the string.",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vitest": "^1.1.1"
+  }
+}

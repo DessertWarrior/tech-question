@@ -3,51 +3,51 @@
 #include "../main/solution.cpp"
 #include <cstdint>
 
-TEST_CASE("All roman numerals are converted to Numbers","[Solution]") {
+TEST_CASE("All numbers are converted to roman numerals","[Solution]") {
     Solution s;
 
-    REQUIRE( s.romanToInt("I") == 1 );
-    REQUIRE( s.romanToInt("II") == 2 );
-    REQUIRE( s.romanToInt("III") == 3 );
-    REQUIRE( s.romanToInt("IV") == 4 );
-    REQUIRE( s.romanToInt("V") == 5 );
-    REQUIRE( s.romanToInt("VI") == 6 );
-    REQUIRE( s.romanToInt("IX") == 9 );
-    REQUIRE( s.romanToInt("X") == 10 );
-    REQUIRE( s.romanToInt("XI") == 11 );
-    REQUIRE( s.romanToInt("XV") == 15 );
-    REQUIRE( s.romanToInt("XVI") == 16 );
-    REQUIRE( s.romanToInt("XIX") == 19 );
-    REQUIRE( s.romanToInt("XX") == 20 );
-    REQUIRE( s.romanToInt("XXI") == 21 );
-    REQUIRE( s.romanToInt("XXV") == 25 );
-    REQUIRE( s.romanToInt("XXVI") == 26 );
-    REQUIRE( s.romanToInt("XXIX") == 29 );
-    REQUIRE( s.romanToInt("XXX") == 30 );
-    REQUIRE( s.romanToInt("XL") == 40 );
-    REQUIRE( s.romanToInt("XLV") == 45 );
-    REQUIRE( s.romanToInt("L") == 50 );
-    REQUIRE( s.romanToInt("LX") == 60 );
-    REQUIRE( s.romanToInt("LXX") == 70 );
-    REQUIRE( s.romanToInt("LXXX") == 80 );
-    REQUIRE( s.romanToInt("XC") == 90 );
-    REQUIRE( s.romanToInt("XCIX") == 99 );
-    REQUIRE( s.romanToInt("C") == 100 );
-    REQUIRE( s.romanToInt("CC") == 200 );
-    REQUIRE( s.romanToInt("CCC") == 300 );
-    REQUIRE( s.romanToInt("CD") == 400 );
-    REQUIRE( s.romanToInt("D") == 500 );
-    REQUIRE( s.romanToInt("DC") == 600 );
-    REQUIRE( s.romanToInt("DCC") == 700 );
-    REQUIRE( s.romanToInt("DCCC") == 800 );
-    REQUIRE( s.romanToInt("CM") == 900 );
-    REQUIRE( s.romanToInt("M") == 1000 );
-    REQUIRE( s.romanToInt("MCDXCIX") == 1499 );
-    REQUIRE( s.romanToInt("MD") == 1500 );
-    REQUIRE( s.romanToInt("MDCCC") == 1800 );
-    REQUIRE( s.romanToInt("MM") == 2000 );
-    REQUIRE( s.romanToInt("MMM") == 3000 );
-    REQUIRE( s.romanToInt("MMMCMXCIX") == 3999 );
+    REQUIRE( s.intToRoman(1) == "I" );
+    REQUIRE( s.intToRoman(2) == "II" );
+    REQUIRE( s.intToRoman(3) == "III" );
+    REQUIRE( s.intToRoman(4) == "IV" );
+    REQUIRE( s.intToRoman(5) == "V" );
+    REQUIRE( s.intToRoman(6) == "VI" );
+    REQUIRE( s.intToRoman(9) == "IX" );
+    REQUIRE( s.intToRoman(10) == "X" );
+    REQUIRE( s.intToRoman(11) == "XI" );
+    REQUIRE( s.intToRoman(15) == "XV" );
+    REQUIRE( s.intToRoman(16) == "XVI" );
+    REQUIRE( s.intToRoman(19) == "XIX" );
+    REQUIRE( s.intToRoman(20) == "XX" );
+    REQUIRE( s.intToRoman(21) == "XXI" );
+    REQUIRE( s.intToRoman(25) == "XXV" );
+    REQUIRE( s.intToRoman(26) == "XXVI" );
+    REQUIRE( s.intToRoman(29) == "XXIX" );
+    REQUIRE( s.intToRoman(30) == "XXX" );
+    REQUIRE( s.intToRoman(40) == "XL" );
+    REQUIRE( s.intToRoman(45) == "XLV" );
+    REQUIRE( s.intToRoman(50) == "L" );
+    REQUIRE( s.intToRoman(60) == "LX" );
+    REQUIRE( s.intToRoman(70) == "LXX" );
+    REQUIRE( s.intToRoman(80) == "LXXX" );
+    REQUIRE( s.intToRoman(90) == "XC" );
+    REQUIRE( s.intToRoman(99) == "XCIX" );
+    REQUIRE( s.intToRoman(100) == "C" );
+    REQUIRE( s.intToRoman(200) == "CC" );
+    REQUIRE( s.intToRoman(300) == "CCC" );
+    REQUIRE( s.intToRoman(400) == "CD" );
+    REQUIRE( s.intToRoman(500) == "D" );
+    REQUIRE( s.intToRoman(600) == "DC" );
+    REQUIRE( s.intToRoman(700) == "DCC" );
+    REQUIRE( s.intToRoman(800) == "DCCC" );
+    REQUIRE( s.intToRoman(900) == "CM" );
+    REQUIRE( s.intToRoman(1000) == "M" );
+    REQUIRE( s.intToRoman(1499) == "MCDXCIX" );
+    REQUIRE( s.intToRoman(1500) == "MD" );
+    REQUIRE( s.intToRoman(1800) == "MDCCC" );
+    REQUIRE( s.intToRoman(2000) == "MM" );
+    REQUIRE( s.intToRoman(3000) == "MMM" );
+    REQUIRE( s.intToRoman(3999) == "MMMCMXCIX" );
 
     
 }

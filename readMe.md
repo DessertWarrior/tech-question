@@ -1,23 +1,25 @@
-Given a string s, reverse only all the vowels in the string and return it.
+Write a function to find the longest common prefix string amongst an array of strings.
 
-The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.
+If there is no common prefix, return an empty string "".
 
  
 
 Example 1:
 
-Input: s = "hello"
-Output: "holle"
+Input: strs = ["flower","flow","flight"]
+Output: "fl"
 
 Example 2:
 
-Input: s = "leetcode"
-Output: "leotcede"
+Input: strs = ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
 
  
 
 Constraints:
 
-    1 <= s.length <= 3 * 105
-    s consist of printable ASCII characters.
+    1 <= strs.length <= 200
+    0 <= strs[i].length <= 200
+    strs[i] consists of only lowercase English letters.
 

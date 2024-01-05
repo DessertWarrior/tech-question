@@ -1,32 +1,35 @@
-Given a 2D integer array matrix, return the transpose of matrix.
+Given an n x n binary matrix image, flip the image horizontally, then invert it, and return the resulting image.
 
-The transpose of a matrix is the matrix flipped over its main diagonal, switching the matrix's row and column indices.
+To flip an image horizontally means that each row of the image is reversed.
 
- 2      4       -1
- -10    5       11
- 18     -7      6
+    For example, flipping [1,1,0] horizontally results in [0,1,1].
 
- 2      -10     18
- 4      5       -7
- -1     11      6
+To invert an image means that each 0 is replaced by 1, and each 1 is replaced by 0.
+
+    For example, inverting [0,1,1] results in [1,0,0].
+
+ 
 
 Example 1:
 
-Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
-Output: [[1,4,7],[2,5,8],[3,6,9]]
+Input: image = [[1,1,0],[1,0,1],[0,0,0]]
+Output: [[1,0,0],[0,1,0],[1,1,1]]
+Explanation: First reverse each row: [[0,1,1],[1,0,1],[0,0,0]].
+Then, invert the image: [[1,0,0],[0,1,0],[1,1,1]]
 
 Example 2:
 
-Input: matrix = [[1,2,3],[4,5,6]]
-Output: [[1,4],[2,5],[3,6]]
+Input: image = [[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]]
+Output: [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]
+Explanation: First reverse each row: [[0,0,1,1],[1,0,0,1],[1,1,1,0],[0,1,0,1]].
+Then invert the image: [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]
 
  
 
 Constraints:
 
-    m == matrix.length
-    n == matrix[i].length
-    1 <= m, n <= 1000
-    1 <= m * n <= 105
-    -109 <= matrix[i][j] <= 109
+    n == image.length
+    n == image[i].length
+    1 <= n <= 20
+    images[i][j] is either 0 or 1.
 

@@ -1,24 +1,27 @@
-Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
 
  
 
 Example 1:
 
-Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
-Output: [[1,6],[8,10],[15,18]]
-Explanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6].
+Input: s = "anagram", t = "nagaram"
+Output: true
 
 Example 2:
 
-Input: intervals = [[1,4],[4,5]]
-Output: [[1,5]]
-Explanation: Intervals [1,4] and [4,5] are considered overlapping.
+Input: s = "rat", t = "car"
+Output: false
 
  
 
 Constraints:
 
-    1 <= intervals.length <= 104
-    intervals[i].length == 2
-    0 <= starti <= endi <= 104
+    1 <= s.length, t.length <= 5 * 104
+    s and t consist of lowercase English letters.
+
+ 
+
+Follow up: What if the inputs contain Unicode characters? How would you adapt your solution to such a case?
 

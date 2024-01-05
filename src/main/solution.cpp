@@ -1,64 +1,46 @@
 #include <string>
-#include <cmath>
+#include <stack>
+#include <iostream>
 using namespace std;
 class Solution {
 public:
-    string intToRoman(int num) {
-        string symbols[] = {"I","V","X","L","C","D","M"};
-        string result = "";
-
-        for (int i = 0; i < log10(num)+1; i++) {
-            string temp = "";
-            int remainder = int(num/pow(10,i))%10;
-            switch (remainder) {
-                case 4:
-                    temp = symbols[2 * i] + symbols[2 * i+1]; 
-                    break;
-                case 9:
-                    temp = symbols[2 * i] + symbols[2 * (i+1)];
-                    break;
-                default:
-                    if (remainder >= 5) {
-                        remainder -= 5;
-                        temp += symbols[2 * i+1];
-                    }
-                    while (remainder!= 0) {
-                        remainder -= 1;
-                        temp += symbols[2 * i];
-                    }
+    int scoreOfParentheses(string s) {
+        int num = 0;
+        stack<string>stack;
+        stack.push("(");
+        // assign 1 to stack, since there"s at least one ().
+        // getting the next character
+        // if the character is ( and prev
+        for (int i = 1; i < s.length(); i++) {
+            // if it forms a full parenthesis
+            if (stack.top() == "(" && s[i]== ')') {
+                stack.top() = "1";
             }
-            result = temp + result;
+            // if its a closing parenthesis and it has number before it
+            else if (s[i] == ')' && stack.top()!= "(" && stack.top() != ")") {
+                int temp = stoi(stack.top());
+                stack.pop();
 
+                // if the next element is also number
+                while (stack.top()!= "(" && stack.top()!= ")") {
+                    temp = stoi(stack.top()) + temp;
+                    stack.pop();
+                }
+                // once it reaches (, remove it and * temp by 2
+                stack.pop();
+                temp *= 2;
+                stack.push(to_string(temp));
+                
+            }
+            else if (s[i]== '(')
+                stack.push("(");
+            
+            // cout << stack.top() << endl;
         }
-        return result;
-        // base condition: s = 0
-    //     if (num == 0) return "";
-    //     //if num is bigger or equal than 1000
-    //     if (num >= 1000)
-    //         return "M" + intToRoman(num-1000);
-    //     else if (num >= 900)
-    //         return "CM" + intToRoman(num-900);
-    //     else if (num >= 500) 
-    //         return "D" + intToRoman(num-500);
-    //     else if (num >= 400) 
-    //         return "CD" + intToRoman(num-400);
-    //     else if (num >= 100)
-    //         return "C" + intToRoman(num- 100);
-    //     else if (num >= 90)
-    //         return "XC" + intToRoman(num-90);
-    //     else if (num >= 50)
-    //         return "L" + intToRoman(num-50);
-    //     else if (num >= 40) 
-    //         return "XL" + intToRoman(num-40);
-    //     else if (num >= 10)
-    //         return "X" + intToRoman(num-10);
-    //     else if (num >= 9)
-    //         return "IX" + intToRoman(num-9);
-    //     else if (num >= 5)
-    //         return "V" + intToRoman(num-5);
-    //     else if (num >=4)
-    //         return "IV" + intToRoman(num-4);
-    //     else   
-    //         return "I" + intToRoman(num-1);
+        while(stack.size() > 0) {
+            num += stoi(stack.top());
+            stack.pop();
+        }
+        return num;
     }
 };

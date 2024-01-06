@@ -2,47 +2,79 @@
 #include <stack>
 #include <iostream>
 using namespace std;
-class Solution {
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+struct ListNode
+{
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *node) : val(x), next(node) {}
+};
+
+class Solution
+{
 public:
-    bool backspaceCompare(string s, string t) {
-        // if # remove 1 character
-        // we use stack
-        stack<char>s1,s2;
-        // s stack
-        for (int i = 0; i< s.length(); i++) {
-            if (s[i] == '#') {
-                if (!s1.empty())
-                    s1.pop();
+    ListNode *sortList(ListNode *head)
+    {
+        ListNode *low = head;
+        ListNode *high = head;
+        // stores prev of low memory
+        ListNode *temp = head;
+        // we can accomplish mergesort by having high going right twice
+        if (head == nullptr || head->next == nullptr)
+            return head;
+
+        // ensure that when we do high->next->next won't encounter high->next == nullptr and cause runtime error
+        while (high != nullptr && high->next != nullptr)
+        {
+            temp = low;
+            low = low->next;
+            high = high->next->next;
+        }
+        // make the next of prev null, we will use it as the sort low end.
+        temp->next = nullptr;  
+        ListNode *l1 = sortList(head);
+        ListNode *l2 = sortList(low);
+        return merge(l1, l2);
+    };
+    ListNode *merge(ListNode *l1, ListNode *l2)
+    {
+        ListNode *sorted = new ListNode();
+        ListNode *result = sorted;
+        while (l1 != nullptr && l2 != nullptr)
+        {
+            if (l1->val > l2->val)
+            {
+                result->next = l2;
+                l2= l2->next;
             }
-            else {
-                s1.push(s[i]);
+            else
+            {
+
+                result->next = l1;
+                l1 = l1->next;
             }
+            result = result->next;
+        }
+        // if any of the list is reaching end, we check if the other one is end
+        if (l1 != nullptr)
+        {
+            result->next = l1;
+        }
+        else if (l2 != nullptr) {
+            result->next = l2;
         }
 
-        // t stack
-        for (int i = 0; i< t.length(); i++) {
-            if (t[i] == '#') {
-                if (!s2.empty())
-                    s2.pop();
-            }
-            else {
-                s2.push(t[i]);
-            }
-        }
-
-        // compare two strings
-        while (s1.size() == s2.size()) {
-            if (s1.empty() && s2.empty()) {
-                return true;
-            }
-            else if (s1.top() == s2.top()) {
-                s1.pop();
-                s2.pop();
-            }
-            else {
-                return false;
-            }
-        }
-        return false;
+        return sorted->next;
     }
 };

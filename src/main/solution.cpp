@@ -4,43 +4,45 @@
 using namespace std;
 class Solution {
 public:
-    int scoreOfParentheses(string s) {
-        int num = 0;
-        stack<string>stack;
-        stack.push("(");
-        // assign 1 to stack, since there"s at least one ().
-        // getting the next character
-        // if the character is ( and prev
-        for (int i = 1; i < s.length(); i++) {
-            // if it forms a full parenthesis
-            if (stack.top() == "(" && s[i]== ')') {
-                stack.top() = "1";
+    bool backspaceCompare(string s, string t) {
+        // if # remove 1 character
+        // we use stack
+        stack<char>s1,s2;
+        // s stack
+        for (int i = 0; i< s.length(); i++) {
+            if (s[i] == '#') {
+                if (!s1.empty())
+                    s1.pop();
             }
-            // if its a closing parenthesis and it has number before it
-            else if (s[i] == ')' && stack.top()!= "(" && stack.top() != ")") {
-                int temp = stoi(stack.top());
-                stack.pop();
+            else {
+                s1.push(s[i]);
+            }
+        }
 
-                // if the next element is also number
-                while (stack.top()!= "(" && stack.top()!= ")") {
-                    temp = stoi(stack.top()) + temp;
-                    stack.pop();
-                }
-                // once it reaches (, remove it and * temp by 2
-                stack.pop();
-                temp *= 2;
-                stack.push(to_string(temp));
-                
+        // t stack
+        for (int i = 0; i< t.length(); i++) {
+            if (t[i] == '#') {
+                if (!s2.empty())
+                    s2.pop();
             }
-            else if (s[i]== '(')
-                stack.push("(");
-            
-            // cout << stack.top() << endl;
+            else {
+                s2.push(t[i]);
+            }
         }
-        while(stack.size() > 0) {
-            num += stoi(stack.top());
-            stack.pop();
+
+        // compare two strings
+        while (s1.size() == s2.size()) {
+            if (s1.empty() && s2.empty()) {
+                return true;
+            }
+            else if (s1.top() == s2.top()) {
+                s1.pop();
+                s2.pop();
+            }
+            else {
+                return false;
+            }
         }
-        return num;
+        return false;
     }
 };

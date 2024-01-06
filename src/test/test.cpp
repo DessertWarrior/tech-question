@@ -7,20 +7,11 @@ TEST_CASE("All numbers are converted to roman numerals","[Solution]") {
     Solution s;
 
     // REQUIRE( s.intToRoman(1) == "I" );
-    REQUIRE( s.scoreOfParentheses("((()())())") == 10 );
-    REQUIRE( s.scoreOfParentheses("(((((())))))") == 32 );
-    REQUIRE( s.scoreOfParentheses("(((()())()(())))")== 28 );
-    REQUIRE( s.scoreOfParentheses("()()") == 2 );
-    REQUIRE( s.scoreOfParentheses("()") == 1 );
-    REQUIRE( s.scoreOfParentheses("(())") == 2 );
-    REQUIRE( s.scoreOfParentheses("()()()") == 3 );
-    REQUIRE( s.scoreOfParentheses("(()(()))") == 6 );
-    REQUIRE( s.scoreOfParentheses("(()())") == 4 );
-    REQUIRE( s.scoreOfParentheses("()()()()") == 4 );
-    REQUIRE( s.scoreOfParentheses("()()()()()") == 5 );
-    REQUIRE( s.scoreOfParentheses("()()()()()()") == 6 );
-    REQUIRE( s.scoreOfParentheses("()()()()()()()") == 7 );
-    REQUIRE( s.scoreOfParentheses("()()()()()()()()") == 8 );
+    REQUIRE( s.backspaceCompare("ab#c","ad#c") == true );
+    REQUIRE( s.backspaceCompare("ab##","c#d#") == true );
+    REQUIRE( s.backspaceCompare("a##c","#a#c") == true );
+    REQUIRE( s.backspaceCompare("a#c","b") == false );
+    REQUIRE( s.backspaceCompare("y#fo##f","y#f#o##f") == true );
     
 
     

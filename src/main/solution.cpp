@@ -22,61 +22,65 @@ struct ListNode
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
-class RecursiveSolution {
+class Solution
+{
 public:
-    ListNode* reverseList(ListNode* head) {
-        if (head == nullptr)
-            return nullptr;
-        // base condition: head == nullptr
-
-        ListNode* next = head->next;
-        
-        head->next = nullptr;
-        next = reverseList(next);// 2,3,4,5 3,4,5 4,5 5 nullptr
-        
-        ListNode* temp = next;  //used for returning the head
-
-        if (next == nullptr)
+    ListNode *reverseBetween(ListNode *head, int left, int right)
+    {
+        if (left == right)
             return head;
-        else {
-            while (next->next != nullptr) {
-                next =next->next;
-            }   
-            next->next = head;
-        }
-        
-        return temp;
+        stack<ListNode* > nodes;
+        ListNode *current = head;
+        ListNode *leftNode = nullptr;
+        ListNode *rightNode = nullptr;
+        ListNode *prevNode = nullptr;
+        int i = 1;
+        // if reverse item is the ead
 
-    }
-};
+        while (current != nullptr)
+        {
+            if (i >= left && i <= right) {
+                // insert all index in range
+                nodes.push(current);
+            }
 
-class Solution {
-public:
-    ListNode* reverseList(ListNode* head) {
-        if (head == nullptr)
-            return head;
+            if (i == left)
+            {
+                leftNode = prevNode;
+            }
+            // once it reached right, exit loop
+            else if (i == right)
+            {
+                rightNode = current->next;
+                break;
+            }
 
-        stack<ListNode*> nodes;
-        //push all linkedlist in stack
-        while (head != nullptr) {
-            nodes.push(head);
-            head = head->next;
-
-            //removes next attribute 
-            nodes.top()->next = nullptr;
-        }
-
-        // retreive it 
-        head = nodes.top();
-        nodes.pop();
-        ListNode* current = head;
-
-        while (!nodes.empty()) {
-            current->next = nodes.top();
+            i++;
+            prevNode = current;
             current = current->next;
-
+        }
+        if(leftNode == nullptr) {
+            //remove next from the pointer
+            nodes.top()->next = nullptr;
+            head = nodes.top();
+            leftNode = head;
+            //remove node from stack
+            nodes.pop();
+            
+        }
+        while (!nodes.empty()) {
+            current = nodes.top();
+            //remove the next pointer
+            current->next = nullptr;
+            // store current node to the next of leftNode
+            leftNode->next = current;
+            leftNode = leftNode->next;
+            //remove top of the stack
             nodes.pop();
         }
+
+        //once we added all the nodes, append rightNode to the end of leftNode
+        leftNode->next = rightNode;
 
         return head;
     }

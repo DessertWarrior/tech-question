@@ -3,58 +3,127 @@
 #include "../main/solution.cpp"
 #include <cstdint>
 
-TEST_CASE("Test case 1", "[nextGreaterElement]")
+TEST_CASE("Test case 1", "[reverseList]")
 {
     Solution s;
-    
-    ListNode* l1 = new ListNode(2);
-    l1->next = new ListNode(4);
-    l1->next->next = new ListNode(3);
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next= new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
 
-    ListNode* l2 = new ListNode(5);
-    l2->next = new ListNode(6);
-    l2->next->next = new ListNode(4);
-
-    ListNode* ans = s.addTwoNumbers(l1,l2);
-    REQUIRE(ans->val == 7);
-    REQUIRE(ans->next->val == 0);
-    REQUIRE(ans->next->next->val == 8);
+    ListNode* result = s.reverseList(head);
+    REQUIRE(result->val == 5);
+    REQUIRE(result->next->val == 4);
+    REQUIRE(result->next->next->val == 3);
+    REQUIRE(result->next->next->next->val == 2);
+    REQUIRE(result->next->next->next->next->val == 1);
+    REQUIRE(result->next->next->next->next->next == nullptr);
 }
-TEST_CASE("Test case 2", "[nextGreaterElement]")
+TEST_CASE("Test case 2", "[reverseList]")
 {
     Solution s;
-    
-    ListNode* l1 = new ListNode(0);
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
 
-    ListNode* l2 = new ListNode(0);
-
-    ListNode* ans = s.addTwoNumbers(l1,l2);
-    REQUIRE(ans->val == 0);
+    ListNode* result = s.reverseList(head);
+    REQUIRE(result->val == 3);
+    REQUIRE(result->next->val == 2);
+    REQUIRE(result->next->next->val == 1);
+    REQUIRE(result->next->next->next == nullptr);
 }
-TEST_CASE("Test case 3", "[nextGreaterElement]")
+TEST_CASE("Test case 3", "[reverseList]")
 {
     Solution s;
-    
-    ListNode* l1 = new ListNode(9);
-    l1->next = new ListNode(9);
-    l1->next->next = new ListNode(9);
-    l1->next->next->next = new ListNode(9);
-    l1->next->next->next->next = new ListNode(9);
-    l1->next->next->next->next->next = new ListNode(9);
-    l1->next->next->next->next->next->next = new ListNode(9);
+    ListNode* head = new ListNode(1);
 
-    ListNode* l2 = new ListNode(9);
-    l2->next = new ListNode(9);
-    l2->next->next = new ListNode(9);
-    l2->next->next->next = new ListNode(9);
+    ListNode* result = s.reverseList(head);
+    REQUIRE(result->val == 1);
+    REQUIRE(result->next == nullptr);
+}
+TEST_CASE("Test case 4", "[reverseList]")
+{
+    Solution s;
+    ListNode* head = nullptr;
 
-    ListNode* ans = s.addTwoNumbers(l1,l2);
-    REQUIRE(ans->val == 8);
-    REQUIRE(ans->next->val == 9);
-    REQUIRE(ans->next->next->val == 9);
-    REQUIRE(ans->next->next->next->val == 9);
-    REQUIRE(ans->next->next->next->next->val == 0);
-    REQUIRE(ans->next->next->next->next->next->val == 0);
-    REQUIRE(ans->next->next->next->next->next->next->val == 0);
-    REQUIRE(ans->next->next->next->next->next->next->next->val == 1);
+    ListNode* result = s.reverseList(head);
+    REQUIRE(result == nullptr);
+}
+TEST_CASE("Test case 5", "[reverseList]")
+{
+    Solution s;
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+
+    ListNode* result = s.reverseList(head);
+    REQUIRE(result->val == 2);
+    REQUIRE(result->next->val == 1);
+    REQUIRE(result->next->next == nullptr);
+}
+TEST_CASE("Test case 6", "[reverseList]")
+{
+    RecursiveSolution s;
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+
+    ListNode* result = s.reverseList(head);
+    REQUIRE(result->val == 3);
+    REQUIRE(result->next->val == 2);
+    REQUIRE(result->next->next->val == 1);
+    REQUIRE(result->next->next->next == nullptr);
+}
+TEST_CASE("Test case 7", "[reverseList]")
+{
+    RecursiveSolution s;
+    ListNode* head = new ListNode(1);
+
+    ListNode* result = s.reverseList(head);
+    REQUIRE(result->val == 1);
+    REQUIRE(result->next == nullptr);
+}
+TEST_CASE("Test case 8", "[reverseList]")
+{
+    RecursiveSolution s;
+    ListNode* head = nullptr;
+
+    ListNode* result = s.reverseList(head);
+    REQUIRE(result == nullptr);
+}
+TEST_CASE("Test case 9", "[reverseList]")
+{
+    RecursiveSolution s;
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+
+    ListNode* result = s.reverseList(head);
+    REQUIRE(result->val == 2);
+    REQUIRE(result->next->val == 1);
+    REQUIRE(result->next->next == nullptr);
+}
+TEST_CASE("Test case 10", "[reverseList]")
+{
+    RecursiveSolution s;
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
+
+    ListNode* result = s.reverseList(head);
+    REQUIRE(result->val == 5);
+    REQUIRE(result->next->val == 4);
+    REQUIRE(result->next->next->val == 3);
+    REQUIRE(result->next->next->next->val == 2);
+    REQUIRE(result->next->next->next->next->val == 1);
+    REQUIRE(result->next->next->next->next->next == nullptr);
+}
+TEST_CASE("Test case 11", "[reverseList]")
+{
+    RecursiveSolution s;
+    ListNode* head = nullptr;
+
+    ListNode* result = s.reverseList(head);
+    REQUIRE(result == nullptr);
 }

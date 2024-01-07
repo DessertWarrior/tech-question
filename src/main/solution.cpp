@@ -22,52 +22,61 @@ struct ListNode
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
-class Solution
-{
+class RecursiveSolution {
 public:
-    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
-    {
-        ListNode *head = l1;
-        ListNode *prev = l1;
-        // store l1 into the stack,
-        int addup = 0;
-        while (l1 != nullptr && l2 != nullptr)
-        {
-            int digit = l1->val + l2->val + addup;
-            addup = digit / 10;
-            l1->val = digit % 10;
+    ListNode* reverseList(ListNode* head) {
+        if (head == nullptr)
+            return nullptr;
+        // base condition: head == nullptr
 
-            prev = l1; // last valid l1
-            l1 = l1->next;
-            l2 = l2->next;
+        ListNode* next = head->next;
+        
+        head->next = nullptr;
+        next = reverseList(next);// 2,3,4,5 3,4,5 4,5 5 nullptr
+        
+        ListNode* temp = next;  //used for returning the head
+
+        if (next == nullptr)
+            return head;
+        else {
+            while (next->next != nullptr) {
+                next =next->next;
+            }   
+            next->next = head;
         }
-        // theres a chance of 1 addup plus digit 9
-        while (l1 != nullptr)
-        {
-            int digit = l1->val + addup;
-            addup = digit / 10;
-            l1->val = digit % 10;
-            prev = l1;
-            l1 = l1->next;
+        
+        return temp;
+
+    }
+};
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (head == nullptr)
+            return head;
+
+        stack<ListNode*> nodes;
+        //push all linkedlist in stack
+        while (head != nullptr) {
+            nodes.push(head);
+            head = head->next;
+
+            //removes next attribute 
+            nodes.top()->next = nullptr;
         }
 
-        // since l1 become nullptr. we need to move current l2 to l1
-        if (l2 != nullptr)
-        {
-            prev->next = l2;
+        // retreive it 
+        head = nodes.top();
+        nodes.pop();
+        ListNode* current = head;
 
-            while (prev->next != nullptr)
-            {
-                prev = prev->next;
-                int digit = prev->val + addup;
-                addup = digit / 10;
-                prev->val = digit % 10; 
-            }
+        while (!nodes.empty()) {
+            current->next = nodes.top();
+            current = current->next;
+
+            nodes.pop();
         }
-
-        //if there is still addup, we need to add a new node
-        if (addup == 1) 
-            prev->next = new ListNode(1);
 
         return head;
     }

@@ -12,69 +12,57 @@ using namespace std;
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-struct ListNode
-{
+struct ListNode {
     int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *node) : val(x), next(node) {}
+    ListNode* next;
+    ListNode():val(0),next(nullptr) {};
+    ListNode(int x): val(x),next(nullptr) {};
+    ListNode(int x, ListNode* next): val(x),next(next) {};
 };
-
-class Solution
-{
+class Solution {
 public:
-    ListNode *sortList(ListNode *head)
-    {
-        ListNode *low = head;
-        ListNode *high = head;
-        // stores prev of low memory
-        ListNode *temp = head;
-        // we can accomplish mergesort by having high going right twice
-        if (head == nullptr || head->next == nullptr)
-            return head;
-
-        // ensure that when we do high->next->next won't encounter high->next == nullptr and cause runtime error
-        while (high != nullptr && high->next != nullptr)
-        {
-            temp = low;
-            low = low->next;
-            high = high->next->next;
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        if (lists.size() == 0) {
+            return nullptr;
         }
-        // make the next of prev null, we will use it as the sort low end.
-        temp->next = nullptr;  
-        ListNode *l1 = sortList(head);
-        ListNode *l2 = sortList(low);
-        return merge(l1, l2);
-    };
-    ListNode *merge(ListNode *l1, ListNode *l2)
-    {
-        ListNode *sorted = new ListNode();
-        ListNode *result = sorted;
-        while (l1 != nullptr && l2 != nullptr)
-        {
-            if (l1->val > l2->val)
-            {
-                result->next = l2;
-                l2= l2->next;
-            }
-            else
-            {
+        //check first element of all first, and next and so on.
+        
 
+        while (lists.size() != 1) {
+            int size = lists.size();
+            ListNode* temp =merge(lists[size-2],lists.back()); 
+            lists.pop_back();
+            lists.back() = temp;
+
+        }
+        return lists[0];
+
+    }
+    ListNode* merge(ListNode* l1, ListNode* l2) {
+        ListNode* result = new ListNode();
+        ListNode* head = result;    //clone same address for return.
+        while (l1 != nullptr && l2 != nullptr) {
+            if (l1->val < l2->val) {
                 result->next = l1;
-                l1 = l1->next;
+                l1 = l1->next;  //we pointed to the next element. so even the next pointer overwriten, we still have value
+    
             }
+            else {
+                result->next =l2;
+                l2 = l2->next;
+            } 
             result = result->next;
         }
-        // if any of the list is reaching end, we check if the other one is end
-        if (l1 != nullptr)
-        {
+
+        // once one of the listnode reached end.
+        // we make sure the other node is fully read.
+        // since it is a linked list, it already contains rest of the next value ordered
+        if (l1!= nullptr) {
             result->next = l1;
         }
         else if (l2 != nullptr) {
             result->next = l2;
         }
-
-        return sorted->next;
+        return head->next;
     }
 };

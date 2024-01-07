@@ -1,29 +1,40 @@
-Given the head of a linked list, return the list after sorting it in ascending order.
+You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+
+Merge all the linked-lists into one sorted linked-list and return it.
 
  
 
 Example 1:
 
-Input: head = [4,2,1,3]
-Output: [1,2,3,4]
+Input: lists = [[1,4,5],[1,3,4],[2,6]]
+Output: [1,1,2,3,4,4,5,6]
+Explanation: The linked-lists are:
+[
+  1->4->5,
+  1->3->4,
+  2->6
+]
+merging them into one sorted list:
+1->1->2->3->4->4->5->6
 
 Example 2:
 
-Input: head = [-1,5,3,4,0]
-Output: [-1,0,3,4,5]
+Input: lists = []
+Output: []
 
 Example 3:
 
-Input: head = []
+Input: lists = [[]]
 Output: []
 
  
 
 Constraints:
 
-    The number of nodes in the list is in the range [0, 5 * 104].
-    -105 <= Node.val <= 105
+    k == lists.length
+    0 <= k <= 104
+    0 <= lists[i].length <= 500
+    -104 <= lists[i][j] <= 104
+    lists[i] is sorted in ascending order.
+    The sum of lists[i].length will not exceed 104.
 
- 
-
-Follow up: Can you sort the linked list in O(n logn) time and O(1) memory (i.e. constant space)?

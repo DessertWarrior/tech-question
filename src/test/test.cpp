@@ -3,20 +3,36 @@
 #include "../main/solution.cpp"
 #include <cstdint>
 
-TEST_CASE("Test case 1","[sortList]") {
-    ListNode* head = new ListNode(4);
-    ListNode* current = head;
-    ListNode* next = new ListNode(2);
-    current->next= next;
-    current = current->next;
-    next = new ListNode(1);
-    current->next= next;
-    current = current->next;
-    next = new ListNode(3);
-    current->next= next;
+TEST_CASE("Test case 1","[mergeKLists]") {
+    vector<ListNode*> lists;
+    {
+        ListNode* head = new ListNode(1);
+        ListNode* current = head;
+        current->next= new ListNode(4);
+        current = current->next;
+        current->next = new ListNode(5);
+        lists.push_back(head);
+    }
+    
+    {
+        ListNode* head = new ListNode(1);
+        ListNode* current = head;
+        current->next= new ListNode(3);
+        current = current->next;
+        current->next = new ListNode(4);
+        lists.push_back(head);
+    }
+
+    {
+        ListNode* head = new ListNode(2);
+        head->next= new ListNode(6);
+        lists.push_back(head);
+    }
 
     Solution s;
-    ListNode* sorted = s.sortList(head);
+    ListNode* sorted = s.mergeKLists(lists);
+    REQUIRE( sorted->val == 1 );
+    sorted = sorted->next;
     REQUIRE( sorted->val == 1 );
     sorted = sorted->next;
     REQUIRE( sorted->val == 2 );
@@ -24,56 +40,145 @@ TEST_CASE("Test case 1","[sortList]") {
     REQUIRE( sorted->val == 3 );
     sorted = sorted->next;
     REQUIRE( sorted->val == 4 );
-}
-TEST_CASE("Test case 2","[sortList]") {
-    ListNode* head = new ListNode(-1);
-    ListNode* current = head;
-    ListNode* next = new ListNode(5);
-    current->next= next;
-    current = current->next;
-    next = new ListNode(3);
-    current->next= next;
-    current = current->next;
-    next = new ListNode(4);
-    current->next= next;
-    current = current->next;
-    next = new ListNode(0);
-    current->next= next;
-
-
-    Solution s;
-    ListNode* sorted = s.sortList(head);
-    REQUIRE( sorted->val == -1 );
-    sorted = sorted->next;
-    REQUIRE( sorted->val == 0 );
-    sorted = sorted->next;
-    REQUIRE( sorted->val == 3 );
     sorted = sorted->next;
     REQUIRE( sorted->val == 4 );
     sorted = sorted->next;
     REQUIRE( sorted->val == 5 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == 6 );
+}
+TEST_CASE("Test case 2","[sortList]") {
+    vector<ListNode*> lists;
+
+    Solution s;
+    ListNode* sorted = s.mergeKLists(lists);
+    REQUIRE( sorted == nullptr);
 }
 TEST_CASE("Test case 3","[sortList]") {
-    ListNode* head = new ListNode(-1);    
-    ListNode* current = head;
-    ListNode* next = new ListNode(-1);
-    current->next= next;
-    current = current->next;
-    next = new ListNode(5);
-    current->next= next;
-    current = current->next;
-    next = new ListNode(-5);
-    current->next= next;
 
+    vector<ListNode*> lists;
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }  
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(3); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(2); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(6); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(4); 
+        lists.push_back(head);
+    }
+    {
+        ListNode* head = new ListNode(-1); 
+        lists.push_back(head);
+    }
 
 
     Solution s;
-    ListNode* sorted = s.sortList(head);
-    REQUIRE( sorted->val == -5 );
+    ListNode* sorted = s.mergeKLists(lists);
+    REQUIRE( sorted->val == -1 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == -1 );
     sorted = sorted->next;
     REQUIRE( sorted->val == -1 );
     sorted = sorted->next;
     REQUIRE( sorted->val == -1 );
     sorted = sorted->next;
-    REQUIRE( sorted->val == 5 );
+    REQUIRE( sorted->val == -1 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == -1 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == -1 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == -1 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == -1 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == -1 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == -1 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == -1 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == -1 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == -1 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == -1 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == -1 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == 2 );
+    sorted = sorted->next;
+    REQUIRE( sorted->val == 3);
+    sorted = sorted->next;
+    REQUIRE( sorted->val == 4);
+    sorted = sorted->next;
+    REQUIRE( sorted->val == 6);
+
 }

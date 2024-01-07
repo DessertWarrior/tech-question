@@ -6,28 +6,27 @@
 using namespace std;
 class Solution {
 public:
-    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
-        map<int,int>map;
-        stack<int> stack;
-        //get all the greater values inside map
-        for (int i = 0; i < nums2.size(); i++) {
-            // if there's any numbers thats pending to find greater value in stack
-            while (!stack.empty() && stack.top() < nums2[i]) {
-                // store the greater values and index inside map
-                map[stack.top()] = nums2[i];
-                //remove the top of stack
+    bool isValid(string s) {
+        stack<char> stack;
+        stack.push(s[0]);   //first character
+
+        for (int i = 1; i < s.length(); i ++) {
+            
+            if (stack.empty())
+                stack.push(s[i]);
+            else if (stack.top() == '(' && s[i] == ')')
                 stack.pop();
-            }
-            stack.push(nums2[i]);
-        }
-
-        for (int i = 0; i< nums1.size(); i++) {
-            if (map[nums1[i]] != NULL) 
-                nums1[i] = map[nums1[i]];
+            else if(stack.top() == '[' && s[i] == ']')
+                stack.pop();
+            else if (stack.top() == '{' && s[i] == '}')
+                stack.pop();
             else
-                nums1[i] = -1;
+                stack.push(s[i]);
         }
 
-        return nums1;
+        //once operation is complete and theres any remainder
+        if (!stack.empty()) 
+            return false;
+        return true;
     }
 };

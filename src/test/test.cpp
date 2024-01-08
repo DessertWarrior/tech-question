@@ -3,30 +3,55 @@
 #include "../main/solution.cpp"
 #include <cstdint>
 
-TEST_CASE("Test case 1", "[getIntersectionNode]")
+TEST_CASE("Test case 1", "[oddEvenList]")
 {
     Solution s;
     ListNode* head = new ListNode(1);
-    ListNode* head2 = new ListNode(1);
-
-    ListNode* shared_ptr = new ListNode(3);
-    ListNode* shared_ptr2 = new ListNode(4);
-    ListNode* shared_ptr3 = new ListNode(5);
-
     head->next = new ListNode(2);
-    head2->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next= new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
 
-    head->next->next = shared_ptr;
-    head->next->next->next= shared_ptr2;
-    head->next->next->next->next = shared_ptr3;
-
-    head2->next->next = shared_ptr;
-
-
-
-    ListNode* result = s.getIntersectionNode(head,head2);
-    REQUIRE(result->val==3);
-    REQUIRE(result->next->val == 4);
+    ListNode* result = s.oddEvenList(head);
+    REQUIRE(result->val == 1);
+    REQUIRE(result->next->val == 3);
     REQUIRE(result->next->next->val == 5);
-    REQUIRE(result->next->next->next == nullptr);
+    REQUIRE(result->next->next->next->val == 2);
+    REQUIRE(result->next->next->next->next->val == 4);
+    REQUIRE(result->next->next->next->next->next == nullptr);
+}
+TEST_CASE("Test case 2", "[oddEvenList]")
+{
+    Solution s;
+    ListNode* head = new ListNode(2);
+    head->next = new ListNode(1);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(5);
+    head->next->next->next->next = new ListNode(6);
+    head->next->next->next->next->next = new ListNode(4);
+    head->next->next->next->next->next->next = new ListNode(7);
+
+    ListNode* result = s.oddEvenList(head);
+    REQUIRE(result->val == 2);
+    REQUIRE(result->next->val == 3);
+    REQUIRE(result->next->next->val == 6);
+    REQUIRE(result->next->next->next->val == 7);
+    REQUIRE(result->next->next->next->next->val == 1);
+    REQUIRE(result->next->next->next->next->next->val == 5);
+    REQUIRE(result->next->next->next->next->next->next->val == 4);
+    REQUIRE(result->next->next->next->next->next->next->next == nullptr);
+}
+TEST_CASE("Test case 3", "[oddEvenList]")
+{
+    Solution s;
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+
+    ListNode* result = s.oddEvenList(head);
+    REQUIRE(result->val == 1);
+    REQUIRE(result->next->val == 3);
+    REQUIRE(result->next->next->val == 2);
+    REQUIRE(result->next->next->next->val == 4);
 }

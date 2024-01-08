@@ -25,39 +25,18 @@ struct ListNode
 };
 class Solution {
 public:
-    ListNode* oddEvenList(ListNode* head) {
-        if (head == nullptr)
-            return head;
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         
-        int i = 1;
-        ListNode* current = head;
-        ListNode* prev =nullptr;
-        queue<ListNode* > nodes;    //stores even nodes;
+        ListNode * cpA = headA;
+        ListNode * cpB = headB;
 
-        while (current!=nullptr) {
-            
+        while (cpA != cpB) {
+            if (cpA == nullptr)   cpA = headB;  //this ensures that both cpA and cpB share the same amount 
+            else    cpA = cpA->next;
 
-            if (i % 2 == 0) //if its even
-            {   
-                nodes.push(current);
-                prev->next = current->next; //connect prev with next
-                current->next = nullptr;  //remove next pointer from current
-                current = prev; // targets prev
-                
-            }
-            i++;
-            prev = current;
-            current = current->next;
-            
+            if (cpB == nullptr)     cpB = headA;
+            else    cpB = cpB->next;
         }
-
-        //once we got all the even indices into queue
-        while (!nodes.empty()) {
-            prev->next = nodes.front();
-            prev = prev->next;
-            nodes.pop();
-        }
-
-        return head;
+        return cpA;
     }
 };

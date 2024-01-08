@@ -25,18 +25,49 @@ struct ListNode
 };
 class Solution {
 public:
-    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        
-        ListNode * cpA = headA;
-        ListNode * cpB = headB;
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if (head == nullptr || head->next == nullptr)  return head;
+        else if (k == 1) return head;
 
-        while (cpA != cpB) {
-            if (cpA == nullptr)   cpA = headB;  //this ensures that both cpA and cpB share the same amount 
-            else    cpA = cpA->next;
+        //at least 2 nodes
+        int i = 1;
+        ListNode* current = head;
+        ListNode* start = head;
+        ListNode* end = nullptr;
+        //head first
 
-            if (cpB == nullptr)     cpB = headA;
-            else    cpB = cpB->next;
+        for (int i = 0; i < k; i++) {
+            //if head reached null before k elements
+            if (current == nullptr) {
+                return head;
+            }
+            end = current;
+            current = current->next;
         }
-        return cpA;
+        //reverse operation
+        end->next = nullptr;
+
+        ListNode* swap1 = start;
+        ListNode* swap2 = start->next;
+        ListNode* rNode =start->next;
+        swap1->next = nullptr;      //remove next pointer
+        // 1. get next value
+        // 2. store it
+        // 2. remove prev next pointer
+        // 4. next value assign prev
+        while (rNode != nullptr) {
+            swap2 = rNode;
+            rNode = rNode->next;
+            swap2->next = swap1;
+            
+            swap1 = swap2;
+        }
+        
+        //swap 2 contains the head element.
+        head = swap2;
+
+        // adding next reverse element to end 
+        start->next = reverseKGroup(current,k);
+        return head;
     }
 };

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <queue>
 using namespace std;
 /*
  * Definition for singly-linked list.
@@ -22,65 +23,40 @@ struct ListNode
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
-class Solution
-{
+class Solution {
 public:
-    ListNode *reverseBetween(ListNode *head, int left, int right)
-    {
-        if (left == right)
+    ListNode* oddEvenList(ListNode* head) {
+        if (head == nullptr)
             return head;
-        stack<ListNode* > nodes;
-        ListNode *current = head;
-        ListNode *leftNode = nullptr;
-        ListNode *rightNode = nullptr;
-        ListNode *prevNode = nullptr;
+        
         int i = 1;
-        // if reverse item is the ead
+        ListNode* current = head;
+        ListNode* prev =nullptr;
+        queue<ListNode* > nodes;    //stores even nodes;
 
-        while (current != nullptr)
-        {
-            if (i >= left && i <= right) {
-                // insert all index in range
+        while (current!=nullptr) {
+            
+
+            if (i % 2 == 0) //if its even
+            {   
                 nodes.push(current);
+                prev->next = current->next; //connect prev with next
+                current->next = nullptr;  //remove next pointer from current
+                current = prev; // targets prev
+                
             }
-
-            if (i == left)
-            {
-                leftNode = prevNode;
-            }
-            // once it reached right, exit loop
-            else if (i == right)
-            {
-                rightNode = current->next;
-                break;
-            }
-
             i++;
-            prevNode = current;
+            prev = current;
             current = current->next;
-        }
-        if(leftNode == nullptr) {
-            //remove next from the pointer
-            nodes.top()->next = nullptr;
-            head = nodes.top();
-            leftNode = head;
-            //remove node from stack
-            nodes.pop();
             
         }
+
+        //once we got all the even indices into queue
         while (!nodes.empty()) {
-            current = nodes.top();
-            //remove the next pointer
-            current->next = nullptr;
-            // store current node to the next of leftNode
-            leftNode->next = current;
-            leftNode = leftNode->next;
-            //remove top of the stack
+            prev->next = nodes.front();
+            prev = prev->next;
             nodes.pop();
         }
-
-        //once we added all the nodes, append rightNode to the end of leftNode
-        leftNode->next = rightNode;
 
         return head;
     }

@@ -3,155 +3,66 @@
 #include "../main/solution.cpp"
 #include <cstdint>
 
-TEST_CASE("Test case 1", "[reverseKGroup]")
+TEST_CASE("Test case 1", "[LRUCache]")
 {
-    ListNode* head = new ListNode(1);
-    ListNode* node = new ListNode(2);
-    ListNode* node2 = new ListNode(3);
-    ListNode* node3 = new ListNode(4);
-    ListNode* node4 = new ListNode(5);
-
-    head->next = node;
-    node->next = node2;
-    node2->next = node3;
-    node3->next = node4;
-    
-    Solution s;
-    ListNode* result = s.reverseKGroup(head,2);
-    REQUIRE(result->val == 2 );
-    REQUIRE(result->next->val == 1);
-    REQUIRE(result->next->next->val == 4);
-    REQUIRE(result->next->next->next->val == 3);
-    REQUIRE(result->next->next->next->next->val == 5);
-    REQUIRE(result->next->next->next->next->next == nullptr);
-
-    REQUIRE(result == node);
-    REQUIRE(result->next == head);
-    REQUIRE(result->next->next == node3);
-    REQUIRE(result->next->next->next == node2);
-    REQUIRE(result->next->next->next->next == node4);
-
+    LRUCache *cache = new LRUCache(2);
+    cache->put(1, 1);
+    cache->put(2, 2);
+    REQUIRE(cache->get(1) == 1); // returns 1
+    cache->put(3, 3);            // evicts key 2
+    REQUIRE(cache->get(2) == -1); // returns -1 (not found)
+    cache->put(4, 4);            // evicts key 1
+    REQUIRE(cache->get(1) == -1); // returns -1 (not found)
+    REQUIRE(cache->get(3) == 3); // returns 3
+    REQUIRE(cache->get(4) == 4); // returns 4
 }
-TEST_CASE("Test case 2", "[reverseKGroup]")
+TEST_CASE("Test case 2", "[LRUCache]")
 {
-    ListNode* head = new ListNode(1);
-    ListNode* node = new ListNode(2);
-    ListNode* node2 = new ListNode(3);
-    ListNode* node3 = new ListNode(4);
-    ListNode* node4 = new ListNode(5);
-
-    head->next = node;
-    node->next = node2;
-    node2->next = node3;
-    node3->next = node4;
-    
-    Solution s;
-    ListNode* result = s.reverseKGroup(head,3);
-    REQUIRE(result->val == 3 );
-    REQUIRE(result->next->val == 2);
-    REQUIRE(result->next->next->val == 1);
-    REQUIRE(result->next->next->next->val == 4);
-    REQUIRE(result->next->next->next->next->val == 5);
-    REQUIRE(result->next->next->next->next->next == nullptr);
-
-    REQUIRE(result == node2);
-    REQUIRE(result->next == node);
-    REQUIRE(result->next->next == head);
-    REQUIRE(result->next->next->next == node3);
-    REQUIRE(result->next->next->next->next == node4);
-
+    LRUCache *cache = new LRUCache(2);
+    REQUIRE(cache->get(2) == -1); // returns -1
+    cache->put(2, 6);
+    REQUIRE(cache->get(1) == -1); // returns -1
+    cache->put(1, 5);
+    cache->put(1, 2);
+    REQUIRE(cache->get(1) == 2); // returns 2
+    REQUIRE(cache->get(2) == 6); // returns 6
+    cache->put(3, 3);            // evicts key 1
+    REQUIRE(cache->get(2) == 6); // returns 6
+    REQUIRE(cache->get(1) == -1); // returns -1
+    REQUIRE(cache->get(3) == 3); // returns 3
 }
-TEST_CASE("Test case 3", "[reverseKGroup]")
+TEST_CASE("Test case 3", "[LRUCache]")
 {
-    ListNode* head = new ListNode(1);
-    
-    Solution s;
-    ListNode* result = s.reverseKGroup(head,1);
-    REQUIRE(result->val == 1 );
-    REQUIRE(result->next == nullptr);
-
-    REQUIRE(result == head);
-
+    LRUCache *cache = new LRUCache(1);
+    cache->put(2, 1);
+    cache->put(1, 1);
+    cache->put(2, 3);
+    cache->put(4, 1);
+    REQUIRE(cache->get(4) == 1); // returns 1
+    REQUIRE(cache->get(2) == -1); // returns -1
 }
-TEST_CASE("Test case 4", "[reverseKGroup]")
+TEST_CASE("Test case 4", "[LRUCache]")
 {
-    ListNode* head = new ListNode(1);
-    ListNode* node = new ListNode(2);
-    ListNode* node2 = new ListNode(3);
-    ListNode* node3 = new ListNode(4);
-    ListNode* node4 = new ListNode(5);
-    ListNode* node5 = new ListNode(6);
-    ListNode* node6 = new ListNode(7);
-
-
-    head->next = node;
-    node->next = node2;
-    node2->next = node3;
-    node3->next = node4;
-    node4->next = node5;
-    node5->next = node6;
-    
-    Solution s;
-    ListNode* result = s.reverseKGroup(head,3);
-    REQUIRE(result->val == 3 );
-    REQUIRE(result->next->val == 2);
-    REQUIRE(result->next->next->val == 1);
-    REQUIRE(result->next->next->next->val == 6);
-    REQUIRE(result->next->next->next->next->val == 5);
-    REQUIRE(result->next->next->next->next->next->val == 4);
-    REQUIRE(result->next->next->next->next->next->next->val == 7);
-    REQUIRE(result->next->next->next->next->next->next->next == nullptr);
-
-    REQUIRE(result == node2);
-    REQUIRE(result->next == node);
-    REQUIRE(result->next->next == head);
-    REQUIRE(result->next->next->next == node5);
-    REQUIRE(result->next->next->next->next == node4);
-    REQUIRE(result->next->next->next->next->next == node3);
-    REQUIRE(result->next->next->next->next->next->next == node6);
-
-}
-TEST_CASE("Test case 5", "[reverseKGroup]")
+    LRUCache *cache = new LRUCache(3);
+    cache->put(2, 1);
+    cache->put(1, 1);
+    cache->put(2, 3);
+    cache->put(4, 1);
+    REQUIRE(cache->get(1) == 1); // returns 1
+    REQUIRE(cache->get(2) == 3); // returns 3
+    REQUIRE(cache->get(4) == 1); // returns 1
+}  
+TEST_CASE("Test case 5", "[LRUCache]")
 {
-    ListNode* head = new ListNode(1);
-    ListNode* node = new ListNode(2);
-    ListNode* node2 = new ListNode(3);
-    ListNode* node3 = new ListNode(4);
-    ListNode* node4 = new ListNode(5);
-    head->next = node;
-    node->next = node2;
-    node2->next = node3;
-    node3->next = node4;
-
-    Solution s;
-    ListNode* result = s.reverseKGroup(head,1);
-    REQUIRE(result->val == 1 );
-    REQUIRE(result->next->val == 2);
-    REQUIRE(result->next->next->val == 3);
-    REQUIRE(result->next->next->next->val == 4);
-    REQUIRE(result->next->next->next->next->val == 5);
-    REQUIRE(result->next->next->next->next->next == nullptr);
-
-    REQUIRE(result == head);
-    REQUIRE(result->next == node);
-    REQUIRE(result->next->next == node2);
-    REQUIRE(result->next->next->next == node3);
-    REQUIRE(result->next->next->next->next == node4);
-
-}   
-TEST_CASE("Test case 6", "[reverseKGroup]")
-{
-    ListNode* head = new ListNode(1);
-    ListNode* node = new ListNode(2);
-    head->next = node;
-
-    Solution s;
-    ListNode* result = s.reverseKGroup(head,2);
-    REQUIRE(result->val == 2 );
-    REQUIRE(result->next->val == 1);
-    REQUIRE(result->next->next == nullptr);
-
-    REQUIRE(result == node);
-    REQUIRE(result->next == head);
-
+    LRUCache *cache = new LRUCache(2);
+    cache->put(2, 1);
+    REQUIRE(cache->get(2) == 1); // returns 1
+    for (int i = 0; i < pow(10,5); i++)
+    {
+        cache->put(i, i);
+        REQUIRE(cache->get(i) == i); // returns 1
+    }
+    REQUIRE(cache->get(1) == -1); // returns 1
+    REQUIRE(cache->get(pow(10,5)-1) == pow(10,5)-1);
+    REQUIRE(cache->get(pow(10,5)-2) == pow(10,5)-2); 
 }

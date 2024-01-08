@@ -15,59 +15,134 @@ using namespace std;
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-struct ListNode
+
+class LRUCache
 {
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
-class Solution {
+private:
+    struct DoublyNode
+    {
+        int value;
+        int index;
+        DoublyNode *prev;
+        DoublyNode *next;
+        DoublyNode() : value(0),index(0), prev(nullptr), next(nullptr) {}
+        DoublyNode(int key,int value) : index(key),value(value), prev(nullptr), next(nullptr) {}
+    };
+    map<int, DoublyNode*> hashmap;
+    DoublyNode *head;
+    DoublyNode *tail;
+    int size;
+    int capacity;
+
 public:
-    ListNode* reverseKGroup(ListNode* head, int k) {
-        if (head == nullptr || head->next == nullptr)  return head;
-        else if (k == 1) return head;
+    LRUCache(int capacity)
+    {
+        this->capacity = capacity;
+        size = 0;
+        head = nullptr;
+        tail = nullptr;
+    }
 
-        //at least 2 nodes
-        int i = 1;
-        ListNode* current = head;
-        ListNode* start = head;
-        ListNode* end = nullptr;
-        //head first
+    int get(int key)
+    {
+        if (hashmap[key] != NULL)
+        {
+            // get the current Node pos, remove the connection.
+            updatePriority(hashmap[key]);
+            return hashmap[key]->value;
+        }
+        return -1;
+    }
+    void updatePriority(DoublyNode *current)
+    {
+        if (head == current && tail == current)
+            return;
+        else if (current == tail)
+        {
+            //update tail
+            tail = current->prev;
+            tail->next = nullptr;
 
-        for (int i = 0; i < k; i++) {
-            //if head reached null before k elements
-            if (current == nullptr) {
-                return head;
+            //update head
+            current->prev = nullptr;
+            current->next = head;
+            head->prev = current;
+            head = current;
+        }
+        else if (current != head)
+        {
+            current->prev->next = current->next;
+            current->next->prev = current->prev;
+
+            current->prev = nullptr;
+            current->next = head;
+            head->prev =current;
+            head = current;
+        }
+    }
+
+    void put(int key, int value)
+    {
+        if (hashmap[key] != NULL)
+        {
+            hashmap[key]->value = value;
+
+            updatePriority(hashmap[key]);
+        }
+        else if (size < capacity)
+        {
+            size++;
+            DoublyNode *newNode = new DoublyNode(key,value);
+            if (head == nullptr && tail == nullptr) {
+                head = newNode;
+                tail = newNode;
             }
-            end = current;
-            current = current->next;
+            else {
+                newNode->next = head;
+                head->prev = newNode;
+                head = newNode;
+            }
+            hashmap[key] = newNode;
         }
-        //reverse operation
-        end->next = nullptr;
+        else
+        {
+            //remove hashmap
+            hashmap.erase(tail->index);
 
-        ListNode* swap1 = start;
-        ListNode* swap2 = start->next;
-        ListNode* rNode =start->next;
-        swap1->next = nullptr;      //remove next pointer
-        // 1. get next value
-        // 2. store it
-        // 2. remove prev next pointer
-        // 4. next value assign prev
-        while (rNode != nullptr) {
-            swap2 = rNode;
-            rNode = rNode->next;
-            swap2->next = swap1;
+            //update tail;
+            if (head == tail) {
+                head = nullptr;
+                tail = nullptr;
+            }
+            else {
+                DoublyNode* temp = tail;
+                tail = tail->prev;
+                tail->next = nullptr;
+                temp->prev = nullptr;
+            }
+
+            DoublyNode* node = new DoublyNode(key,value);
+
+            if (head == nullptr && tail == nullptr) {
+                tail = node;
+                head = node;
+            }
+            else {
+                node->next = head;
+                head->prev = node;
+                head = node;
+            }
             
-            swap1 = swap2;
-        }
-        
-        //swap 2 contains the head element.
-        head = swap2;
+            //add hashmap
+            hashmap[key] = node;
 
-        // adding next reverse element to end 
-        start->next = reverseKGroup(current,k);
-        return head;
+        }
     }
 };
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */

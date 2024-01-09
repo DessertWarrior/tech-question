@@ -1,32 +1,32 @@
-There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
 
-    For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
 
-Return true if you can finish all courses. Otherwise, return false.
+You may assume that you have an infinite number of each kind of coin.
 
  
 
 Example 1:
 
-Input: numCourses = 2, prerequisites = [[1,0]]
-Output: true
-Explanation: There are a total of 2 courses to take. 
-To take course 1 you should have finished course 0. So it is possible.
+Input: coins = [1,2,5], amount = 11
+Output: 3
+Explanation: 11 = 5 + 5 + 1
 
 Example 2:
 
-Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
-Output: false
-Explanation: There are a total of 2 courses to take. 
-To take course 1 you should have finished course 0, and to take course 0 you should also have finished course 1. So it is impossible.
+Input: coins = [2], amount = 3
+Output: -1
+
+Example 3:
+
+Input: coins = [1], amount = 0
+Output: 0
 
  
 
 Constraints:
 
-    1 <= numCourses <= 2000
-    0 <= prerequisites.length <= 5000
-    prerequisites[i].length == 2
-    0 <= ai, bi < numCourses
-    All the pairs prerequisites[i] are unique.
+    1 <= coins.length <= 12
+    1 <= coins[i] <= 231 - 1
+    0 <= amount <= 10^4
 

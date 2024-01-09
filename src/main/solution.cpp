@@ -5,144 +5,54 @@
 #include <map>
 #include <queue>
 using namespace std;
-/*
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
-
-class LRUCache
-{
+class Solution {
 private:
-    struct DoublyNode
-    {
-        int value;
-        int index;
-        DoublyNode *prev;
-        DoublyNode *next;
-        DoublyNode() : value(0),index(0), prev(nullptr), next(nullptr) {}
-        DoublyNode(int key,int value) : index(key),value(value), prev(nullptr), next(nullptr) {}
-    };
-    map<int, DoublyNode*> hashmap;
-    DoublyNode *head;
-    DoublyNode *tail;
-    int size;
-    int capacity;
+    vector<vector<int>> constructGraph(int numCourses, vector<vector<int>> prerequisites) {
+        vector<vector<int>> graph(numCourses);
 
+        for (auto p: prerequisites) {
+            graph[p[0]].push_back(p[1]);
+        }
+        return graph;
+    }
+    bool isLoop(vector<vector<int>> &graph, vector<bool> &todo, vector<bool> &done,int &target) {
+        // we are using dfs, if we found todo is true, then loop detected over at line 30.
+        // because we set todo to true on line 26.
+        // if either the target has no dependency, or we already done it, then return false;
+        // because we set todo to be false if no loop detected.
+        if (todo[target]) 
+            return true;
+        if (done[target])
+            return false;
+
+        todo[target] = done[target] = true;
+        // if theres no prerequisite, return true;
+        for (auto p : graph[target]) {
+            // check prerequisite of other classes, if i have any todos,
+            // then that means, we either encountered a cross prerequisite, or it needs other prerequisite to unlock
+            if (isLoop(graph,todo,done,p)) {
+                return true;
+            }
+        }
+        todo[target] = false;
+        return false;
+
+    }
 public:
-    LRUCache(int capacity)
-    {
-        this->capacity = capacity;
-        size = 0;
-        head = nullptr;
-        tail = nullptr;
-    }
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        // add every prerequisite classes to map,
+        // and if found, add to the 
+        vector<vector<int>> graph = constructGraph(numCourses,prerequisites);
+        vector<bool>todo(numCourses,false),done(numCourses,false);
 
-    int get(int key)
-    {
-        if (hashmap[key] != NULL)
-        {
-            // get the current Node pos, remove the connection.
-            updatePriority(hashmap[key]);
-            return hashmap[key]->value;
-        }
-        return -1;
-    }
-    void updatePriority(DoublyNode *current)
-    {
-        if (head == current && tail == current)
-            return;
-        else if (current == tail)
-        {
-            //update tail
-            tail = current->prev;
-            tail->next = nullptr;
 
-            //update head
-            current->prev = nullptr;
-            current->next = head;
-            head->prev = current;
-            head = current;
-        }
-        else if (current != head)
-        {
-            current->prev->next = current->next;
-            current->next->prev = current->prev;
-
-            current->prev = nullptr;
-            current->next = head;
-            head->prev =current;
-            head = current;
-        }
-    }
-
-    void put(int key, int value)
-    {
-        if (hashmap[key] != NULL)
-        {
-            hashmap[key]->value = value;
-
-            updatePriority(hashmap[key]);
-        }
-        else if (size < capacity)
-        {
-            size++;
-            DoublyNode *newNode = new DoublyNode(key,value);
-            if (head == nullptr && tail == nullptr) {
-                head = newNode;
-                tail = newNode;
+        //as long as needed course not bigger than numsCourses, continue
+        for (int i = 0; i < numCourses; i++) {
+            if (isLoop(graph,todo,done,i)) {
+                return false;
             }
-            else {
-                newNode->next = head;
-                head->prev = newNode;
-                head = newNode;
-            }
-            hashmap[key] = newNode;
         }
-        else
-        {
-            //remove hashmap
-            hashmap.erase(tail->index);
 
-            //update tail;
-            if (head == tail) {
-                head = nullptr;
-                tail = nullptr;
-            }
-            else {
-                DoublyNode* temp = tail;
-                tail = tail->prev;
-                tail->next = nullptr;
-                temp->prev = nullptr;
-            }
-
-            DoublyNode* node = new DoublyNode(key,value);
-
-            if (head == nullptr && tail == nullptr) {
-                tail = node;
-                head = node;
-            }
-            else {
-                node->next = head;
-                head->prev = node;
-                head = node;
-            }
-            
-            //add hashmap
-            hashmap[key] = node;
-
-        }
+        return true;
     }
 };
-
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache* obj = new LRUCache(capacity);
- * int param_1 = obj->get(key);
- * obj->put(key,value);
- */

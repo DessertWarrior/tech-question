@@ -3,31 +3,33 @@
 #include "../main/solution.cpp"
 #include <cstdint>
 
-TEST_CASE("Test case 1", "[groupAnagrams]")
+TEST_CASE("Test case 1", "[reverseWords]")
 {
     Solution s;
-    vector<string> v;
-    v.push_back("cat");
-    v.push_back("atc");
-    v.push_back("tea");
-    v.push_back("cta");
-    v.push_back("ate");
-    v.push_back(" ");
-    vector<vector<string>> data =s.groupAnagrams(v);
-
-    REQUIRE(data[0].size()== 1);
-
-    REQUIRE(data[1].size()== 2);
-
-    REQUIRE(data[2].size()== 3);
-
+    string str = "the sky is blue";
+    REQUIRE(s.reverseWords(str) == "blue is sky the");
 }
-TEST_CASE("Test case 2", "[groupAnagrams]")
+TEST_CASE("Test case 2", "[reverseWords]")
 {
     Solution s;
-    vector<string> v;
-    v.push_back("cat");
-    vector<vector<string>> data =s.groupAnagrams(v);
-
-    REQUIRE(data[0].size()== 1);
+    string str = "  hello world!  ";
+    REQUIRE(s.reverseWords(str) == "world! hello");
+}
+TEST_CASE("Test case 3", "[reverseWords]")
+{
+    Solution s;
+    string str = "a good   example";
+    REQUIRE(s.reverseWords(str) == "example good a");
+}
+TEST_CASE("Test case 4", "[reverseWords]")
+{
+    Solution s;
+    string str = "  Bob    Loves  Alice   ";
+    REQUIRE(s.reverseWords(str) == "Alice Loves Bob");
+}
+TEST_CASE("Test case 5", "[reverseWords]")
+{
+    Solution s;
+    string str = "EPY2giL";
+    REQUIRE(s.reverseWords(str) == "EPY2giL");
 }

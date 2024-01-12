@@ -1,32 +1,38 @@
-You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+Given an input string s, reverse the order of the words.
 
-Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
 
-You may assume that you have an infinite number of each kind of coin.
+Return a string of the words in reverse order concatenated by a single space.
+
+Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
 
  
 
 Example 1:
 
-Input: coins = [1,2,5], amount = 11
-Output: 3
-Explanation: 11 = 5 + 5 + 1
+Input: s = "the sky is blue"
+Output: "blue is sky the"
 
 Example 2:
 
-Input: coins = [2], amount = 3
-Output: -1
+Input: s = "  hello world  "
+Output: "world hello"
+Explanation: Your reversed string should not contain leading or trailing spaces.
 
 Example 3:
 
-Input: coins = [1], amount = 0
-Output: 0
+Input: s = "a good   example"
+Output: "example good a"
+Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
 
  
 
 Constraints:
 
-    1 <= coins.length <= 12
-    1 <= coins[i] <= 231 - 1
-    0 <= amount <= 10^4
+    1 <= s.length <= 104
+    s contains English letters (upper-case and lower-case), digits, and spaces ' '.
+    There is at least one word in s.
 
+ 
+
+Follow-up: If the string data type is mutable in your language, can you solve it in-place with O(1) extra space?

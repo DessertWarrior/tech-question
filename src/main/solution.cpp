@@ -10,19 +10,33 @@
 using namespace std;
 class Solution {
 public:
-    vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        vector<vector<string>> anagrams;
-        unordered_map<string, vector<string>> list;
-        for (string str : strs) {
-            string x = str;
-            sort(x.begin(),x.end());
-            //on creation if not exist, create new vector and push back.
-            list[x].push_back(str);
+    string reverseWords(string s) {
+        //find first character, reach until the end,
+        // store into the stack
+        // print it
+        string result = "";
+        stack<char>wordIndices;
+        for (int i = s.length()-1; i >= 0; i--) {
+            if (s[i] == ' ' && wordIndices.size() != 0 && result != "") {
+                result += " ";
+            }
+            //if isword is triggered and index currently is whitespace
+            while (s[i] == ' ' && wordIndices.size() != 0) {
+                result += wordIndices.top();
+                wordIndices.pop();
+            }
+            if (s[i] != ' ') {
+                wordIndices.push(s[i]);
+            }
+                
         }
-        //retrieve data from map to vector.
-        for (auto l: list) {
-            anagrams.push_back(l.second);
+        if (result != "" && wordIndices.size() != 0) {
+            result += " ";
         }
-        return anagrams;
+        while(wordIndices.size() != 0) {
+            result+= wordIndices.top();
+            wordIndices.pop();
+        }
+        return result;
     }
 };

@@ -5,38 +5,24 @@
 #include <map>
 #include <queue>
 #include <climits>
+#include <unordered_map>
+#include <algorithm>
 using namespace std;
 class Solution {
 public:
-//  current is the current coin choice
-    int findMinCoin(vector<int>& coins, int amount,int current = 0) {
-        // if the coin selection is out of bound, or amount equal or below 0
-        if (current >= coins.size() || amount <= 0) {
-            return amount == 0 ? 0 : INT_MAX-1;    //if the amount count exactly, we return 0, else maxint-1
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>> anagrams;
+        unordered_map<string, vector<string>> list;
+        for (string str : strs) {
+            string x = str;
+            sort(x.begin(),x.end());
+            //on creation if not exist, create new vector and push back.
+            list[x].push_back(str);
         }
-
-        // if amount is too big for the coin, switch over to other coin.
-        
-        int result;
-        if (amount < coins[current]) {
-            int otherCoin = 0 + findMinCoin(coins,amount,current+1);
-            result = otherCoin;
+        //retrieve data from map to vector.
+        for (auto l: list) {
+            anagrams.push_back(l.second);
         }
-        else {
-            // if amount is bigger than coin, we have two choices.
-            // 1. take 1 coin.
-            // 2. switch to the other coin.
-            int coin = 1 + findMinCoin(coins,amount-coins[current],current);
-            int otherCoin = 0 + findMinCoin(coins,amount, current+1);
-            // we find the minimum amount of coins required.
-            // and because we return as INT_MAX-1, if both failed
-            // we return as INT_MAX -1;
-            result = min(coin,otherCoin);
-        }
-        return result;
-    }
-    int coinChange(vector<int>& coins, int amount) {
-        int result = findMinCoin(coins,amount);  //we either going to return min amount or INT_MAX-1
-        return (result == INT_MAX-1)? -1 : result;
+        return anagrams;
     }
 };

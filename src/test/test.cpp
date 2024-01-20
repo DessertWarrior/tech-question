@@ -3,33 +3,21 @@
 #include "../main/solution.cpp"
 #include <cstdint>
 
-TEST_CASE("Test case 1", "[reverseWords]")
+TEST_CASE("Test case 1", "[candy]")
 {
     Solution s;
-    string str = "the sky is blue";
-    REQUIRE(s.reverseWords(str) == "blue is sky the");
+    vector<int>v = {1,2,3,4,5,5,4,3,2,1};
+    REQUIRE(s.candy(v) == 30);
 }
-TEST_CASE("Test case 2", "[reverseWords]")
+TEST_CASE("Test case 2", "[candy]")
 {
     Solution s;
-    string str = "  hello world!  ";
-    REQUIRE(s.reverseWords(str) == "world! hello");
+    vector<int>v = {1,6,10,8,7,5,8,3,2,1};
+    REQUIRE(s.candy(v) == 23);
 }
-TEST_CASE("Test case 3", "[reverseWords]")
+TEST_CASE("Test case 3", "[candy]")
 {
     Solution s;
-    string str = "a good   example";
-    REQUIRE(s.reverseWords(str) == "example good a");
-}
-TEST_CASE("Test case 4", "[reverseWords]")
-{
-    Solution s;
-    string str = "  Bob    Loves  Alice   ";
-    REQUIRE(s.reverseWords(str) == "Alice Loves Bob");
-}
-TEST_CASE("Test case 5", "[reverseWords]")
-{
-    Solution s;
-    string str = "EPY2giL";
-    REQUIRE(s.reverseWords(str) == "EPY2giL");
+    vector<int>v = {1,6,10,8,6,10,8,10,10,1};
+    REQUIRE(s.candy(v) == 17);
 }

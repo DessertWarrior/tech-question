@@ -10,33 +10,35 @@
 using namespace std;
 class Solution {
 public:
-    string reverseWords(string s) {
-        //find first character, reach until the end,
-        // store into the stack
-        // print it
-        string result = "";
-        stack<char>wordIndices;
-        for (int i = s.length()-1; i >= 0; i--) {
-            if (s[i] == ' ' && wordIndices.size() != 0 && result != "") {
-                result += " ";
+    int candy(vector<int>& ratings) {
+        int total = 1;
+        int modifier = 1;
+        int high = 0;
+        int rMax = 1;
+        for (int i =1; i < ratings.size(); i++) {
+            if (ratings[i] > ratings[i-1]) {
+                modifier++;
+                high = 0;
+                total += modifier;
+                rMax= modifier;
             }
-            //if isword is triggered and index currently is whitespace
-            while (s[i] == ' ' && wordIndices.size() != 0) {
-                result += wordIndices.top();
-                wordIndices.pop();
+            else if (ratings[i] < ratings[i-1]) {
+                modifier = 1;
+                high ++;
+                total += high;
+                if (high >= rMax) {
+                    total ++;
+                }
             }
-            if (s[i] != ' ') {
-                wordIndices.push(s[i]);
+            else {
+                modifier = 1;
+                high = 0;
+                rMax = modifier;
+                total += modifier;
+
             }
-                
         }
-        if (result != "" && wordIndices.size() != 0) {
-            result += " ";
-        }
-        while(wordIndices.size() != 0) {
-            result+= wordIndices.top();
-            wordIndices.pop();
-        }
-        return result;
+        return total;
+        
     }
 };

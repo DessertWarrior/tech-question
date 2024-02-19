@@ -1,31 +1,31 @@
 #include <vector>
 #include <iostream>
-#include <stack>
 using namespace std;
 class Solution {
-public: 
-    int Trap(vector<int>& height) {
-        if (height.size() <= 2) return 0;
-        int total = 0;
-        int right = height.size()-1;
-        int left = 0;
-        int lMax= -1 ,rMax = -1;    //declare it as -1 to initiate. so that index 0 and n-1 definitely assigns
-        
-        while (left < right) {
-            // if current is bigger than lMax, replace
-            lMax = max(lMax,height[left]);
-            
-            // if current is bigger than rMax, replace
-            rMax = max(rMax,height[right]);
-            // first find min of two max, add its side max and reduce current
-            // image a cup, that has lmax, rmax, and current. 
-            if (lMax < rMax) {
-                total += lMax - height[left++];
-            }
+public:
+    string convert(string s, int numRows) {
+        if (numRows == 1) return s;
+
+        //create number of rows of empty string
+        vector<string> v(numRows,"");
+        bool dir = false;    //true dir means moving forward
+        int j = 0;
+        for (int i = 0; i < s.length(); i++) {
+            // if the j is at edge, change dir
+            if (j == 0 || j == numRows-1) dir = !dir;
+            v[j] += s[i];
+            // moving positive dir
+            if (dir) 
+                j++;
             else 
-                total += rMax - height[right--];
-            
+                j--; 
         }
-        return total;
+
+        //once all the row strings are assigned. we concat all vector strings
+        string result = "";
+        for (auto it : v) {
+            result+= it;
+        }
+        return result;
     }
 };
